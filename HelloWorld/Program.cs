@@ -1,5 +1,2 @@
-﻿using System;
-
-Console.Write("Enter your name: ");
-string name = Console.ReadLine();
-Console.WriteLine($"Hello, {name}!");
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
