@@ -1,5 +1,3 @@
-using System;
-
 Random rand = new();
 int secretNumber = rand.Next(1, 101); // Random number between 1 and 100
 
