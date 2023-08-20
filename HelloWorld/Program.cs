@@ -1,30 +1,36 @@
 using System;
 
-namespace HelloWorld
+Console.WriteLine("Temperature Converter");
+Console.WriteLine("1. Celsius to Fahrenheit");
+Console.WriteLine("2. Fahrenheit to Celsius");
+Console.Write("Choose your option (1/2): ");
+int option = int.Parse(Console.ReadLine());
+
+Console.Write("Enter the temperature value: ");
+double temp = double.Parse(Console.ReadLine());
+double convertedTemp;
+
+switch (option)
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
+    case 1:
+        convertedTemp = CelsiusToFahrenheit(temp);
+        Console.WriteLine($"{temp}°C is equivalent to {convertedTemp}°F");
+        break;
+    case 2:
+        convertedTemp = FahrenheitToCelsius(temp);
+        Console.WriteLine($"{temp}°F is equivalent to {convertedTemp}°C");
+        break;
+    default:
+        Console.WriteLine("Invalid option chosen.");
+        break;
+}
 
-            Console.Write("Enter the first number: ");
-            double num1 = Convert.ToDouble(Console.ReadLine());
+double CelsiusToFahrenheit(double celsius)
+{
+    return (celsius * 9 / 5) + 32;
+}
 
-            Console.Write("Enter the second number: ");
-            double num2 = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine($"Sum: {num1 + num2}");
-            Console.WriteLine($"Difference: {num1 - num2}");
-            Console.WriteLine($"Product: {num1 * num2}");
-            if (num2 != 0) // To avoid division by zero
-            {
-                Console.WriteLine($"Quotient: {num1 / num2}");
-            }
-            else
-            {
-                Console.WriteLine("Cannot divide by zero.");
-            }
-
-        }
-    }
+double FahrenheitToCelsius(double fahrenheit)
+{
+    return (fahrenheit - 32) * 5 / 9;
 }
