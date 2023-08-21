@@ -23,14 +23,20 @@ namespace PostgreSQLExample
                 }
 
                 // Retrieving data from a table
-                using (var dataCmd = new NpgsqlCommand("SELECT id, name FROM mytable", connection))
+                using (var dataCmd = new NpgsqlCommand("SELECT date, username, tweet FROM tweets", connection))
                 using (var reader = dataCmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Console.WriteLine(reader.GetInt32(0) + ": " + reader.GetString(1));
+                        DateTime dateValue = reader.GetDateTime(0); // For "date"
+                        string usernameValue = reader.GetString(1); // For "username"
+                        string tweetValue = reader.GetString(2);    // For "tweet"
+
+                        Console.WriteLine($"Date: {dateValue}, Username: {usernameValue}, Tweet: {tweetValue}");
                     }
                 }
+
+            
             }
             catch (NpgsqlException ex)
             {
