@@ -9,7 +9,7 @@ namespace PostgreSQLExample
     {
         static void Main()
         {
-            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=Manonthemoon123;Database=azure_app";
+            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=;Database=azure_app";
 
 
             // Assuming these as initial maximum lengths based on headers
@@ -34,7 +34,7 @@ namespace PostgreSQLExample
                 {
                     DateTime dateValue = reader.GetDateTime(0);
                     string usernameValue = reader.GetString(1);
-                    string tweetValue = reader.GetString(2);
+                    string tweetValue = reader.GetString(2).Replace("\n", " ").Replace("\r\n", " ");
 
                     // Check and update max lengths
                     maxDateLength = Math.Max(maxDateLength, dateValue.ToString("M/d/yyyy H:mm").Length);
@@ -47,15 +47,16 @@ namespace PostgreSQLExample
                     tweets.Add(tweetValue);
                 }
 
+
                 string filePath = @"C:\Users\Misha\source\repos\HelloWorld\output.csv";
 
 
                 using StreamWriter fileWriter = new StreamWriter(filePath);
-                fileWriter.WriteLine($"{"Date".PadRight(maxDateLength)}\t{"Username".PadRight(maxUsernameLength)}\t{"Tweet"}");
+                fileWriter.WriteLine($"{"Date".PadRight(maxDateLength)},{"Username".PadRight(maxUsernameLength)},{"Tweet"}");
 
                 for (int i = 0; i < dates.Count; i++)
                 {
-                    fileWriter.WriteLine($"{dates[i].ToString("M/d/yyyy H:mm").PadRight(maxDateLength)}\t{usernames[i].PadRight(maxUsernameLength)}\t{tweets[i]}");
+                    fileWriter.WriteLine($"{dates[i].ToString("M/d/yyyy H:mm").PadRight(maxDateLength)},{usernames[i].PadRight(maxUsernameLength)},{tweets[i]}");
                 }
 
                 Console.WriteLine("Data has been written to the file successfully!");
