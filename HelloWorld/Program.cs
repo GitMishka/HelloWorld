@@ -8,7 +8,7 @@ namespace PostgreSQLExample
     {
         static void Main()
         {
-            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=;Database=azure_app";
+            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=Manonthemoon123;Database=azure_app";
 
             try
             {
@@ -24,15 +24,19 @@ namespace PostgreSQLExample
                 // Using StreamWriter to write data to the file
                 using StreamWriter fileWriter = new StreamWriter(filePath);
 
+                // Write the header line
+                fileWriter.WriteLine("Date,Username,Tweet");
+
                 while (reader.Read())
                 {
                     DateTime dateValue = reader.GetDateTime(0);
                     string usernameValue = reader.GetString(1);
-                    string tweetValue = reader.GetString(2);
+                    string tweetValue = reader.GetString(2).Replace(",", ";"); // To ensure no commas within tweets mess up the format
 
-                    string outputLine = $"Date: {dateValue}, Username: {usernameValue}, Tweet: {tweetValue}";
-                    fileWriter.WriteLine(outputLine); // Writing data to the file
+                    string outputLine = $"{dateValue},{usernameValue},{tweetValue}";
+                    fileWriter.WriteLine(outputLine);
                 }
+
 
                 Console.WriteLine("Data has been written to the file successfully!");
 
