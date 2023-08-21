@@ -1,36 +1,18 @@
 using System;
+using Npgsql;
 
-Console.WriteLine("Temperature Converter");
-Console.WriteLine("1. Celsius to Fahrenheit");
-Console.WriteLine("2. Fahrenheit to Celsius");
-Console.Write("Choose your option (1/2): ");
-int option = int.Parse(Console.ReadLine());
-
-Console.Write("Enter the temperature value: ");
-double temp = double.Parse(Console.ReadLine());
-double convertedTemp;
-
-switch (option)
+class Program
 {
-    case 1:
-        convertedTemp = CelsiusToFahrenheit(temp);
-        Console.WriteLine($"{temp}°C is equivalent to {convertedTemp}°F");
-        break;
-    case 2:
-        convertedTemp = FahrenheitToCelsius(temp);
-        Console.WriteLine($"{temp}°F is equivalent to {convertedTemp}°C");
-        break;
-    default:
-        Console.WriteLine("Invalid option chosen.");
-        break;
-}
+    static void Main()
+    {
+        var cs = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=;Database=azure_app";
 
-double CelsiusToFahrenheit(double celsius)
-{
-    return (celsius * 9 / 5) + 32;
-}
+        using var con = new NpgsqlConnection(cs);
+        con.Open();
 
-double FahrenheitToCelsius(double fahrenheit)
-{
-    return (fahrenheit - 32) * 5 / 9;
+        using var cmd = new NpgsqlCommand("SELECT version()", con);
+        var version = cmd.ExecuteScalar().ToString();
+        Console.WriteLine($"PostgreSQL version: {version}");
+    }
 }
+//"Host=mishasdb.postgres.database.azure.com;Username=misha;Password=;Database=azure_app";
