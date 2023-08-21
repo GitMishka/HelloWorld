@@ -8,7 +8,7 @@ namespace PostgreSQLExample
     {
         static void Main()
         {
-            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=Manonthemoon123;Database=azure_app";
+            var connectionString = "Host=mishasdb.postgres.database.azure.com;Username=misha;Password=;Database=azure_app";
 
             try
             {
@@ -19,7 +19,7 @@ namespace PostgreSQLExample
                 using var reader = dataCmd.ExecuteReader();
 
                 // Path to the file where data will be saved
-                string filePath = @"C:\Users\Misha\source\repos\HelloWorld\Houtput.txt";
+                string filePath = @"C:\Users\Misha\source\repos\HelloWorld\output.csv";
 
                 // Using StreamWriter to write data to the file
                 using StreamWriter fileWriter = new StreamWriter(filePath);
